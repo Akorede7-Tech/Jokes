@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="hero.jpeg" type="image/jpeg">
+    <title>joke</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+            background: #000;
+            color: #fff;
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .container{
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            width: 90vw;
+            text-align: center;
+        }
+        h3{
+            color: #ffff00;
+        }
+        .content{
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            width: 85vw;
+            height: 85vh;
+            color: #ffff00;
+            border: 4px double #ffff00;
+            border-radius: 35px;
+            font-size: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h3>Jokes!!😃</h3>
+
+    <div class="container">
+        <div class="content" id="contentNo">
+            <p id="crashNo">Loading joke...</p>
+        </div>
+    </div>
+    <script>
+        async function fetchCrashNumber() {
+            try {
+                let response = await fetch("https://official-joke-api.appspot.com/random_joke"); // Example API
+                let data = await response.json();
+
+                if (data && data.id !== undefined) {
+                    document.getElementById("crashNo").innerText = data.setup + " - " + data.punchline; // Display the joke
+                } else {
+                    console.error("Invalid API response:", data);
+                }
+            } catch (error) {
+                console.error("Error fetching joke:", error);
+            }
+        }
+
+        // Refresh joke every 10 seconds
+        setInterval(fetchCrashNumber, 10000);
+
+        // Fetch the first joke immediately
+        fetchCrashNumber();
+    </script>
+</body>
+</html>
